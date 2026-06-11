@@ -1,0 +1,39 @@
+name: spark_launcher
+description: A spark awakening inside an endless cycle.
+publish_to: 'none'
+version: 2.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.3.2
+  device_apps: ^2.2.0
+  shared_preferences: ^2.5.5
+  video_player: ^2.11.1
+  lottie: ^3.3.3
+  flutter_svg: ^2.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/system/
+    - assets/icons/spark/
+    - assets/wallpapers/eye/
+    - assets/wallpapers/ouroboros/
+    - assets/wallpapers/ember/
+    - assets/wallpapers/eclipse/
+    - assets/wallpapers/aurora/
+    - assets/wallpapers/abstract/
+    - assets/wallpapers/community/
+    - assets/videos/
+    - assets/animations/
+    - assets/themes/
+    - assets/fonts/
