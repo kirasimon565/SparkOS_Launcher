@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'page_view.dart';
 import 'dock.dart';
 import 'search_bar.dart';
+import '../../widgets/spark_wallpaper.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +24,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Placeholder for wallpaper
       body: GestureDetector(
         onVerticalDragEnd: (details) {
           if (details.primaryVelocity! > 0) {
@@ -34,6 +34,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         },
         child: Stack(
           children: [
+            const SparkWallpaper(),
             const SparkPageView(),
             const Positioned(
               bottom: 20,

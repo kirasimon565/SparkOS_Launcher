@@ -14,17 +14,17 @@ import '../screens/settings/backup_screen.dart';
 
 class SparkRoutes {
   static Map<String, WidgetBuilder> get routes => {
-    '/intro': (context) => const IntroVideoScreen(),
-    '/welcome': (context) => const WelcomeScreen(),
-    '/home': (context) => const HomeScreen(),
-    '/drawer': (context) => const AppDrawerScreen(),
-    '/folder': (context) => const FolderScreen(),
-    '/settings': (context) => const SettingsScreen(),
-    '/settings/about': (context) => const AboutScreen(),
-    '/settings/appearance': (context) => const AppearanceScreen(),
-    '/settings/themes': (context) => const ThemesScreen(),
-    '/settings/wallpaper': (context) => const WallpaperScreen(),
-    '/settings/gestures': (context) => const GesturesScreen(),
-    '/settings/backup': (context) => const BackupScreen(),
-  };
+        '/intro': (context) => const IntroVideoScreen(),
+        '/welcome': (context) => const WelcomeScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/drawer': (context) => const AppDrawerScreen(),
+        '/folder': (context) => const FolderScreen(),
+        '/settings': (context) => const SettingsScreen(),
+        '/settings/about': (context) => const AboutScreen(),
+        '/settings/appearance': (context) => const AppearanceScreen(),
+        '/settings/themes': (context) => const ThemesScreen(),
+        '/settings/wallpaper': (context) => const WallpaperScreen(),
+        '/settings/gestures': (context) => const GesturesScreen(),
+        '/settings/backup': (context) => const BackupScreen(),
+      };
 }

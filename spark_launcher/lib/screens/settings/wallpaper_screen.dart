@@ -24,10 +24,12 @@ class WallpaperScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber, foregroundColor: Colors.black),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber, foregroundColor: Colors.black),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Live Wallpapers coming soon...')),
+                  const SnackBar(
+                      content: Text('Live Wallpapers coming soon...')),
                 );
               },
               child: const Text('Set Ouroboros Live Wallpaper'),

@@ -31,7 +31,9 @@ class ThemesScreen extends ConsumerWidget {
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),
-            trailing: isSelected ? const Icon(Icons.check, color: Colors.amber) : null,
+            trailing: isSelected
+                ? const Icon(Icons.check, color: Colors.amber)
+                : null,
             onTap: () {
               ref.read(settingsProvider.notifier).setTheme(themeName);
             },

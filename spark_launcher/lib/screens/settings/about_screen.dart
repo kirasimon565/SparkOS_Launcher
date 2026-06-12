@@ -22,7 +22,10 @@ class AboutScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             const Text(
               'Spark Launcher V2',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -37,7 +40,8 @@ class AboutScreen extends ConsumerWidget {
               ),
               onPressed: () {
                 ref.read(settingsProvider.notifier).setHasSeenIntro(false);
-                Navigator.pushNamedAndRemoveUntil(context, '/intro', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/intro', (route) => false);
               },
               child: const Text('Replay Welcome Experience'),
             ),

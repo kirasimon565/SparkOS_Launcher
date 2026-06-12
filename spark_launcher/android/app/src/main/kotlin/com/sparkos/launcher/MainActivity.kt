@@ -11,6 +11,7 @@ import android.provider.Settings
 class MainActivity: FlutterActivity() {
     private val DEVICE_CHANNEL = "com.sparkos.launcher/device"
     private val LAUNCHER_CHANNEL = "com.sparkos.launcher/bridge"
+    private val ICONS_CHANNEL = "com.sparkos.launcher/icons"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -18,6 +19,15 @@ class MainActivity: FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, DEVICE_CHANNEL).setMethodCallHandler { call, result ->
             if (call.method == "getDeviceProfileLevel") {
                 result.success(getDeviceProfileLevel())
+            } else {
+                result.notImplemented()
+            }
+        }
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, ICONS_CHANNEL).setMethodCallHandler { call, result ->
+            if (call.method == "loadIconPack") {
+                // Placeholder for actual native icon pack parsing logic
+                result.success(null)
             } else {
                 result.notImplemented()
             }
@@ -31,6 +41,15 @@ class MainActivity: FlutterActivity() {
                     result.success(true)
                 } catch (e: Exception) {
                     result.error("UNAVAILABLE", "Home settings unavailable.", null)
+                }
+            } else if (call.method == "isDefaultLauncher") {
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                val resolveInfo = packageManager.resolveActivity(intent, android.content.pm.PackageManager.MATCH_DEFAULT_ONLY)
+                if (resolveInfo != null && resolveInfo.activityInfo.packageName == packageName) {
+                    result.success(true)
+                } else {
+                    result.success(false)
                 }
             } else {
                 result.notImplemented()

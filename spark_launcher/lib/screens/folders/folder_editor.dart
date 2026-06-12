@@ -62,8 +62,10 @@ class _FolderEditorState extends State<FolderEditor> {
               decoration: const InputDecoration(
                 hintText: 'Folder Name',
                 hintStyle: TextStyle(color: Colors.grey),
-                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.amber)),
-                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.amber, width: 2)),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.amber)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.amber, width: 2)),
               ),
             ),
             const SizedBox(height: 24),
@@ -103,7 +105,8 @@ class _FolderEditorState extends State<FolderEditor> {
                               shape: BoxShape.circle,
                               color: Colors.amber,
                             ),
-                            child: const Icon(Icons.check, size: 16, color: Colors.black),
+                            child: const Icon(Icons.check,
+                                size: 16, color: Colors.black),
                           ),
                         ),
                     ],

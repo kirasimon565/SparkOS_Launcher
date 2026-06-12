@@ -4,7 +4,8 @@ class SparkCard extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
 
-  const SparkCard({Key? key, required this.child, this.onTap}) : super(key: key);
+  const SparkCard({Key? key, required this.child, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

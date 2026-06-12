@@ -19,7 +19,8 @@ class BackupScreen extends StatelessWidget {
             const Icon(Icons.cloud_upload, size: 80, color: Colors.grey),
             const SizedBox(height: 24),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber, foregroundColor: Colors.black),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber, foregroundColor: Colors.black),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Backup successful')),
@@ -29,7 +30,9 @@ class BackupScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             OutlinedButton(
-              style: OutlinedButton.styleFrom(foregroundColor: Colors.white, side: const BorderSide(color: Colors.amber)),
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.amber)),
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Restore successful')),
