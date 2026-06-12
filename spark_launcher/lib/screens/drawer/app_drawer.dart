@@ -10,7 +10,8 @@ class AppDrawerScreen extends ConsumerStatefulWidget {
   _AppDrawerScreenState createState() => _AppDrawerScreenState();
 }
 
-class _AppDrawerScreenState extends ConsumerState<AppDrawerScreen> with SingleTickerProviderStateMixin {
+class _AppDrawerScreenState extends ConsumerState<AppDrawerScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
@@ -21,7 +22,8 @@ class _AppDrawerScreenState extends ConsumerState<AppDrawerScreen> with SingleTi
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _fadeAnimation = CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+    _fadeAnimation =
+        CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
     _animationController.forward();
   }
 
@@ -62,10 +64,12 @@ class _AppDrawerScreenState extends ConsumerState<AppDrawerScreen> with SingleTi
               ),
               Expanded(
                 child: apps.isEmpty
-                    ? const Center(child: CircularProgressIndicator(color: Colors.amber))
+                    ? const Center(
+                        child: CircularProgressIndicator(color: Colors.amber))
                     : GridView.builder(
                         padding: const EdgeInsets.all(16),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
                           crossAxisSpacing: 16,
                           mainAxisSpacing: 24,
@@ -76,7 +80,8 @@ class _AppDrawerScreenState extends ConsumerState<AppDrawerScreen> with SingleTi
                           return SparkIcon(
                             iconBytes: app.iconBytes,
                             label: app.title,
-                            onTap: () => appsNotifier.launchApp(app.packageName),
+                            onTap: () =>
+                                appsNotifier.launchApp(app.packageName),
                           );
                         },
                       ),

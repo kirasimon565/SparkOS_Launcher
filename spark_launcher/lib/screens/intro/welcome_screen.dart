@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import '../../services/settings_service.dart';
 import '../../widgets/spark_button.dart';
 
@@ -14,7 +15,11 @@ class WelcomeScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.remove_red_eye, size: 100, color: Colors.amber), // Placeholder for Spark SVG
+            SizedBox(
+              width: 150,
+              height: 150,
+              child: Lottie.asset('assets/animations/eye_open.json'),
+            ),
             const SizedBox(height: 40),
             const Text(
               'A NEW CYCLE BEGINS',

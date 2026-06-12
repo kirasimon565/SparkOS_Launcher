@@ -1,7 +1,8 @@
 import 'package:flutter/services.dart';
 
 class WidgetBridge {
-  static const MethodChannel _channel = MethodChannel('com.sparkos.launcher/widget');
+  static const MethodChannel _channel =
+      MethodChannel('com.sparkos.launcher/widget');
 
   static Future<void> bindWidget(int appWidgetId) async {
     try {

@@ -37,7 +37,8 @@ class CategoryView extends StatelessWidget {
                   category,
                   style: TextStyle(
                     color: isSelected ? Colors.black : Colors.amber,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
               ),

@@ -19,7 +19,8 @@ class AppearanceScreen extends ConsumerWidget {
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Grid Columns', style: TextStyle(color: Colors.white)),
+            title: const Text('Grid Columns',
+                style: TextStyle(color: Colors.white)),
             trailing: DropdownButton<int>(
               value: settings.gridColumns,
               dropdownColor: Colors.grey[900],
@@ -32,13 +33,14 @@ class AppearanceScreen extends ConsumerWidget {
               }).toList(),
               onChanged: (newValue) {
                 if (newValue != null) {
-                   ref.read(settingsProvider.notifier).setGridColumns(newValue);
+                  ref.read(settingsProvider.notifier).setGridColumns(newValue);
                 }
               },
             ),
           ),
           SwitchListTile(
-            title: const Text('Page Loop', style: TextStyle(color: Colors.white)),
+            title:
+                const Text('Page Loop', style: TextStyle(color: Colors.white)),
             value: settings.pageLoopEnabled,
             activeColor: Colors.amber,
             onChanged: (bool value) {

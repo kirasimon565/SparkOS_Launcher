@@ -35,7 +35,8 @@ class AppsNotifier extends Notifier<List<AppModel>> {
         );
       }).toList();
 
-      parsedApps.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
+      parsedApps.sort(
+          (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
       state = parsedApps;
     } catch (e) {
       print("Failed to load apps: \$e");
@@ -43,9 +44,12 @@ class AppsNotifier extends Notifier<List<AppModel>> {
   }
 
   String _assignCategory(String packageName) {
-    if (packageName.contains('android.contacts') || packageName.contains('messaging')) return 'Communication';
-    if (packageName.contains('gallery') || packageName.contains('player')) return 'Media';
-    if (packageName.contains('settings') || packageName.contains('packageinstaller')) return 'System';
+    if (packageName.contains('android.contacts') ||
+        packageName.contains('messaging')) return 'Communication';
+    if (packageName.contains('gallery') || packageName.contains('player'))
+      return 'Media';
+    if (packageName.contains('settings') ||
+        packageName.contains('packageinstaller')) return 'System';
     return 'Tools';
   }
 
