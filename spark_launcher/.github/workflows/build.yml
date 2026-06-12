@@ -2,9 +2,9 @@ name: Build APK
 
 on:
   push:
-    branches: [ "spark-launcher-v2-scaffold-4823038679527574067/spark_launcher" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "spark-launcher-v2-scaffold-4823038679527574067" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
         run: flutter build apk --release
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
