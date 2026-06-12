@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [ "spark-launcher-v2-scaffold-4823038679527574067" ]
+    branches: [ "spark-launcher-v2-scaffold-4823038679527574067/spark_launcher" ]
   pull_request:
     branches: [ "spark-launcher-v2-scaffold-4823038679527574067" ]
 
