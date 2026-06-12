@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../services/settings_provider.dart';
+import '../../services/settings_service.dart';
 
 class ThemesScreen extends ConsumerWidget {
   const ThemesScreen({Key? key}) : super(key: key);

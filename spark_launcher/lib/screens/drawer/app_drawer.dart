@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../services/apps_provider.dart';
+import '../../services/apps_service.dart';
 import '../../widgets/spark_icon.dart';
 
 class AppDrawerScreen extends ConsumerStatefulWidget {
