@@ -38,6 +38,7 @@ class AppsNotifier extends Notifier<List<AppModel>> {
       parsedApps.sort((a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
       state = parsedApps;
     } catch (e) {
+      // ignore: avoid_print
       print("Failed to load apps: \$e");
     }
   }
@@ -48,8 +49,10 @@ class AppsNotifier extends Notifier<List<AppModel>> {
     if (packageName.contains('settings') || packageName.contains('packageinstaller')) return 'System';
     return 'Tools';
   }
+}
 
-  void launchApp(String packageName) {
+class AppsService {
+  static void launchApp(String packageName) {
     DeviceApps.openApp(packageName);
   }
 }

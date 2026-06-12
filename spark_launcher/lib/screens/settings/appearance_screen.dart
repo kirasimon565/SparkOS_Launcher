@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../services/settings_service.dart';
 
 class AppearanceScreen extends ConsumerWidget {
-  const AppearanceScreen({Key? key}) : super(key: key);
+  const AppearanceScreen({super.key}) ;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +40,7 @@ class AppearanceScreen extends ConsumerWidget {
           SwitchListTile(
             title: const Text('Page Loop', style: TextStyle(color: Colors.white)),
             value: settings.pageLoopEnabled,
-            activeColor: Colors.amber,
+            activeThumbColor: Colors.amber,
             onChanged: (bool value) {
               ref.read(settingsProvider.notifier).setPageLoop(value);
             },

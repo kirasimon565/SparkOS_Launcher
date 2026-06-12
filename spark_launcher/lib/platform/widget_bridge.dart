@@ -1,13 +1,16 @@
 import 'package:flutter/services.dart';
 
 class WidgetBridge {
-  static const MethodChannel _channel = MethodChannel('com.sparkos.launcher/widget');
+  static const MethodChannel _channel = MethodChannel('spark_launcher/widget_bridge');
 
-  static Future<void> bindWidget(int appWidgetId) async {
+  static Future<int?> bindWidget(String providerName) async {
     try {
-      await _channel.invokeMethod('bindWidget', {'appWidgetId': appWidgetId});
-    } on PlatformException catch (e) {
-      print("Failed to bind widget: \${e.message}");
+      final int result = await _channel.invokeMethod('bindWidget', {'providerName': providerName});
+      return result;
+    } on PlatformException {
+      // ignore: avoid_print
+      print("Failed to bind widget.");
+      return null;
     }
   }
 }

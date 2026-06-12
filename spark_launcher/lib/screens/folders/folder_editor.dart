@@ -8,13 +8,13 @@ class FolderEditor extends StatefulWidget {
   final List<AppModel> availableApps;
 
   const FolderEditor({
-    Key? key,
+    super.key,
     required this.folder,
     required this.availableApps,
-  }) : super(key: key);
+  });
 
   @override
-  _FolderEditorState createState() => _FolderEditorState();
+  State<FolderEditor> createState() => _FolderEditorState();
 }
 
 class _FolderEditorState extends State<FolderEditor> {
@@ -46,7 +46,6 @@ class _FolderEditorState extends State<FolderEditor> {
           IconButton(
             icon: const Icon(Icons.check, color: Colors.amber),
             onPressed: () {
-              // Save logic
               Navigator.pop(context);
             },
           )
