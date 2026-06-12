@@ -2,9 +2,9 @@ name: Build APK
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "spark-launcher-v2-scaffold-4823038679527574067" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "spark-launcher-v2-scaffold-4823038679527574067" ]
 
 jobs:
   build:
