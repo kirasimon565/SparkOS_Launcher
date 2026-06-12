@@ -1,30 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+import '../../core/routes.dart';
 
 class IntroVideoScreen extends StatefulWidget {
-  const IntroVideoScreen({Key? key}) : super(key: key);
+  const IntroVideoScreen({super.key});
 
   @override
-  _IntroVideoScreenState createState() => _IntroVideoScreenState();
+  State<IntroVideoScreen> createState() => _IntroVideoScreenState();
 }
 
 class _IntroVideoScreenState extends State<IntroVideoScreen> {
+  late VideoPlayerController _controller;
+
   @override
   void initState() {
     super.initState();
-    // Placeholder logic for video playback duration
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.pushReplacementNamed(context, '/welcome');
+    _controller = VideoPlayerController.asset('assets/videos/spark_intro.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+        _controller.play();
+      });
+
+    _controller.addListener(() {
+      if (_controller.value.position == _controller.value.duration) {
+        Navigator.of(context).pushReplacementNamed(SparkRoutes.welcome);
       }
     });
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: CircularProgressIndicator(color: Colors.amber), // Placeholder for video
+        child: _controller.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              )
+            : const SizedBox(),
       ),
     );
   }

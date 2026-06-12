@@ -6,11 +6,11 @@ class SparkButton extends StatelessWidget {
   final Color outlineColor;
 
   const SparkButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.outlineColor = Colors.amber,
-  }) : super(key: key);
+  }) ;
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import '../services/settings_service.dart';
 import 'routes.dart';
 
 class SparkLauncherApp extends ConsumerWidget {
-  const SparkLauncherApp({Key? key}) : super(key: key);
+  const SparkLauncherApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +19,7 @@ class SparkLauncherApp extends ConsumerWidget {
         fontFamily: 'SparkSans',
       ),
       initialRoute: initialRoute,
-      routes: SparkRoutes.routes,
+      onGenerateRoute: SparkRoutes.onGenerateRoute,
     );
   }
 }

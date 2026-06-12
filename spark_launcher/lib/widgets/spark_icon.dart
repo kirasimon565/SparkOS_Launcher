@@ -7,14 +7,14 @@ class SparkIcon extends StatefulWidget {
   final VoidCallback onTap;
 
   const SparkIcon({
-    Key? key,
+    super.key,
     this.iconBytes,
     required this.label,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
-  _SparkIconState createState() => _SparkIconState();
+  State<SparkIcon> createState() => _SparkIconState();
 }
 
 class _SparkIconState extends State<SparkIcon> {
@@ -38,7 +38,7 @@ class _SparkIconState extends State<SparkIcon> {
               boxShadow: _isPressed
                   ? [
                       BoxShadow(
-                        color: Colors.amber.withOpacity(0.5),
+                        color: Colors.amber.withValues(alpha: 0.5),
                         blurRadius: 10,
                         spreadRadius: 2,
                       )

@@ -5,10 +5,10 @@ import 'dock.dart';
 import 'search_bar.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
@@ -39,7 +39,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               bottom: 20,
               left: 0,
               right: 0,
-              child: SparkDock(),
+              child: Dock(),
             ),
             if (_isSearchVisible)
               Positioned(

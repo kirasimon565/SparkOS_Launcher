@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../services/settings_service.dart';
 
 class AboutScreen extends ConsumerWidget {
-  const AboutScreen({Key? key}) : super(key: key);
+  const AboutScreen({super.key}) ;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

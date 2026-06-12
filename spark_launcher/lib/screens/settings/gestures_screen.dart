@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GesturesScreen extends StatelessWidget {
-  const GesturesScreen({Key? key}) : super(key: key);
+  const GesturesScreen({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

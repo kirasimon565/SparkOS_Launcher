@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
 
 class SparkParticle {
-  Offset position;
-  Offset velocity;
-  double alpha;
+  double x;
+  double y;
+  double vx;
+  double vy;
+  double life;
+  double maxLife;
+  Color color;
   double size;
 
   SparkParticle({
-    required this.position,
-    required this.velocity,
-    this.alpha = 1.0,
-    this.size = 2.5,
+    required this.x,
+    required this.y,
+    required this.vx,
+    required this.vy,
+    required this.life,
+    required this.maxLife,
+    required this.color,
+    required this.size,
   });
-
-  void update() {
-    position += velocity;
-    alpha -= 0.04;
-  }
 }
 
 class SparkTrailPainter extends CustomPainter {
   final List<SparkParticle> particles;
-  final Color sparkColor;
 
-  SparkTrailPainter({required this.particles, required this.sparkColor});
+  SparkTrailPainter({required this.particles});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = sparkColor
-      ..strokeCap = StrokeCap.round;
-
     for (var particle in particles) {
-      if (particle.alpha <= 0) continue;
-      paint.color = sparkColor.withOpacity(particle.alpha);
-      canvas.drawCircle(particle.position, particle.size, paint);
+      final paint = Paint()
+        ..color = particle.color.withValues(alpha: particle.life / particle.maxLife)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.0);
+
+      canvas.drawCircle(Offset(particle.x, particle.y), particle.size, paint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant SparkTrailPainter oldDelegate) => true;
+  bool shouldRepaint(covariant SparkTrailPainter oldDelegate) {
+    return true;
+  }
 }
