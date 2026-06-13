@@ -12,6 +12,7 @@
 
     <application
         android:label="Spark Launcher"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:hardwareAccelerated="true">
 
@@ -33,5 +34,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <meta-data android:name="flutterEmbedding" android:value="2" />
     </application>
 </manifest>
