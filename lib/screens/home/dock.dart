@@ -144,9 +144,9 @@ class _SparkDockState extends State<SparkDock>
           // ─────── The Spark itself ───────
           GestureDetector(
             onTap: _toggleDock,
-            onPanStart: (_) => _onPointerDown(_),
-            onPanEnd: (_) => _onPointerUp(_),
-            onPanCancel: () => _onPointerUp(_),
+            onPanStart: (details) => _onPointerDown(details),
+            onPanEnd: (details) => _onPointerUp(details),
+            onPanCancel: () => _onPointerUp(null),
             child: AnimatedBuilder(
               animation: Listenable.merge([
                 _breatheController,
