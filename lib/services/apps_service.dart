@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:device_apps/device_apps.dart';
+import 'package:installed_apps/installed_apps.dart';
+import 'package:installed_apps/app_info.dart';
 import 'dart:typed_data';
 import '../models/app_model.dart';
 
@@ -16,22 +17,22 @@ class AppsNotifier extends Notifier<List<AppModel>> {
 
   Future<void> _initApps() async {
     try {
-      List<Application> apps = await DeviceApps.getInstalledApplications(
-        includeAppIcons: true,
-        includeSystemApps: true,
-        onlyAppsWithLaunchIntent: true,
+      List<AppInfo> apps = await InstalledApps.getInstalledApps(
+        excludeSystemApps: false,
+        withIcon: true,
+
       );
 
       var parsedApps = apps.map((app) {
         Uint8List? iconBytes;
-        if (app is ApplicationWithIcon) {
+        if (app.icon != null) {
           iconBytes = app.icon;
         }
         return AppModel(
-          title: app.appName,
-          packageName: app.packageName,
+          title: app.name!,
+          packageName: app.packageName!,
           iconBytes: iconBytes,
-          category: _assignCategory(app.packageName),
+          category: _assignCategory(app.packageName!),
         );
       }).toList();
 
@@ -54,6 +55,6 @@ class AppsNotifier extends Notifier<List<AppModel>> {
   }
 
   void launchApp(String packageName) {
-    DeviceApps.openApp(packageName);
+    InstalledApps.startApp(packageName);
   }
 }

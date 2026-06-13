@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SparkWallpaper extends StatelessWidget {
-  final String imagePath;
-  final Widget child;
+  final String? imagePath;
+  final Widget? child;
 
   const SparkWallpaper({
     Key? key,
-    required this.imagePath,
-    required this.child,
+    this.imagePath = '',
+    this.child = const SizedBox.shrink(),
   }) : super(key: key);
 
   @override
@@ -15,9 +15,9 @@ class SparkWallpaper extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black, // Fallback
-        image: imagePath.isNotEmpty
+        image: imagePath != null && imagePath!.isNotEmpty
             ? DecorationImage(
-                image: AssetImage(imagePath),
+                image: AssetImage(imagePath!),
                 fit: BoxFit.cover,
               )
             : null,
