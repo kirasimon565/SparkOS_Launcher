@@ -12,6 +12,7 @@ class SparkDock extends StatefulWidget {
   final Color sparkColor;
   final void Function(int index)? onAppTap;
   final void Function(int index)? onAppLongPress;
+  final void Function(bool isOpen)? onDockStateChanged;
 
   const SparkDock({
     Key? key,
@@ -19,6 +20,7 @@ class SparkDock extends StatefulWidget {
     this.sparkColor = const Color(0xFFE6A800), // Amber
     this.onAppTap,
     this.onAppLongPress,
+    this.onDockStateChanged,
   }) : super(key: key);
 
   @override
@@ -76,6 +78,9 @@ class _SparkDockState extends State<SparkDock>
         _particleController.reverse();
       }
     });
+
+    // Notify parent
+    widget.onDockStateChanged?.call(_isOpen);
   }
 
   void _onPointerDown(_) {
