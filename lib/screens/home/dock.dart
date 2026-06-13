@@ -83,11 +83,11 @@ class _SparkDockState extends State<SparkDock>
     widget.onDockStateChanged?.call(_isOpen);
   }
 
-  void _onPointerDown(_) {
+  void _onPointerDown(DragStartDetails? _) {
     setState(() => _isPressed = true);
   }
 
-  void _onPointerUp(_) {
+  void _onPointerUp(DragEndDetails? _) {
     setState(() => _isPressed = false);
   }
 
