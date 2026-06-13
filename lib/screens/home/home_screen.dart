@@ -371,13 +371,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   onDockStateChanged: _onDockStateChanged,
                 ),
               ),
+            ),    
 
               // ─── Layer 4: Search Bar ────────────────────────────────────
               if (_isSearchVisible)
                 Positioned(
                   top: MediaQuery.of(context).padding.top + 12,
-                  left: 20,
-                  right: 20,
+                  left: 16,
+                  right: 16,
+                  child: FadeTransition(
+                  opacity: _searchFadeController,
                   child: SparkSearchBar(
                     onDismiss: _closeSearch,
                     fadeAnimation: _searchFadeController,
