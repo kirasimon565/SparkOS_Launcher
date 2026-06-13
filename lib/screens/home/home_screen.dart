@@ -287,6 +287,74 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Build the stack children list separately for clarity
+    final stackChildren = <Widget>[
+      // ─── Layer 0: Wallpaper ───────────────────────────────────────
+      const SparkWallpaper(),
+
+      // ─── Layer 1: Home Screen Pages ───────────────────────────────
+      AnimatedPadding(
+        duration: SparkAnimationDuration.medium,
+        curve: Curves.easeOutCubic,
+        padding: EdgeInsets.only(
+          bottom: _isDockOpen ? 80 : 40,
+        ),
+        child: AnimatedOpacity(
+          duration: SparkAnimationDuration.medium,
+          opacity: _isOverviewMode ? 0.4 : 1.0,
+          child: Transform.scale(
+            scale: _isOverviewMode ? 0.85 : 1.0,
+            child: const SparkPageView(),
+          ),
+        ),
+      ),
+
+      // ─── Layer 2: Dark gradient overlay at bottom ────────────────
+      const IgnorePointer(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: _BottomGradient(),
+        ),
+      ),
+
+      // ─── Layer 3: Spark Dock ──────────────────────────────────────
+      Positioned(
+        bottom: 24,
+        left: 0,
+        right: 0,
+        child: SparkDock(
+          apps: _dockApps,
+          sparkColor: SparkColors.amber,
+          onAppTap: _onDockAppTap,
+          onAppLongPress: _onDockAppLongPress,
+          onDockStateChanged: _onDockStateChanged,
+        ),
+      ),
+    ];
+
+    // ─── Layer 4: Search Bar (conditional) ─────────────────────────
+    if (_isSearchVisible) {
+      stackChildren.add(
+        Positioned(
+          top: MediaQuery.of(context).padding.top + 12,
+          left: 16,
+          right: 16,
+          child: FadeTransition(
+            opacity: _searchFadeController,
+            child: SparkSearchBar(
+              onDismiss: _closeSearch,
+              fadeAnimation: _searchFadeController,
+            ),
+          ),
+        ),
+      );
+    }
+
+    // ─── Layer 5: Overview Mode (conditional) ──────────────────────
+    if (_isOverviewMode) {
+      stackChildren.add(_buildOverviewMode());
+    }
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -297,100 +365,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       child: Scaffold(
         backgroundColor: Colors.black,
         body: GestureDetector(
-          // Detect vertical swipes for search and drawer
           onVerticalDragEnd: _handleVerticalDrag,
-
-          // Double tap for overview
           onDoubleTap: _handleDoubleTap,
-
-          // Long press for overview mode
           onLongPress: _handleLongPress,
-
-          // Tap on empty space to dismiss
           onTap: () {
             if (_isSearchVisible) _closeSearch();
             if (_isOverviewMode) _closeOverview();
           },
-
           child: Stack(
             fit: StackFit.expand,
-            children: [
-              // ─── Layer 0: Wallpaper ─────────────────────────────────────
-              const SparkWallpaper(),
-
-              // ─── Layer 1: Home Screen Pages ─────────────────────────────
-              // Subtle parallax effect when dock is open
-              AnimatedPadding(
-                duration: SparkAnimationDuration.medium,
-                curve: Curves.easeOutCubic,
-                padding: EdgeInsets.only(
-                  bottom: _isDockOpen ? 80 : 40,
-                ),
-                child: AnimatedOpacity(
-                  duration: SparkAnimationDuration.medium,
-                  opacity: _isOverviewMode ? 0.4 : 1.0,
-                  child: Transform.scale(
-                    scale: _isOverviewMode ? 0.85 : 1.0,
-                    child: const SparkPageView(),
-                  ),
-                ),
-              ),
-
-              // ─── Layer 2: Dark gradient overlay at bottom ──────────────
-              // Subtle darkness behind the spark to make it pop
-              IgnorePointer(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 160,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.3),
-                          Colors.black.withOpacity(0.5),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              // ─── Layer 3: Spark Dock ────────────────────────────────────
-              Positioned(
-                bottom: 24,
-                left: 0,
-                right: 0,
-                child: SparkDock(
-                  apps: _dockApps,
-                  sparkColor: SparkColors.amber,
-                  onAppTap: _onDockAppTap,
-                  onAppLongPress: _onDockAppLongPress,
-                  onDockStateChanged: _onDockStateChanged,
-                ),
-              ),
-            ),    
-
-              // ─── Layer 4: Search Bar ────────────────────────────────────
-              if (_isSearchVisible)
-                Positioned(
-                  top: MediaQuery.of(context).padding.top + 12,
-                  left: 16,
-                  right: 16,
-                  child: FadeTransition(
-                  opacity: _searchFadeController,
-                  child: SparkSearchBar(
-                    onDismiss: _closeSearch,
-                    fadeAnimation: _searchFadeController,
-                  ),
-                ),
-
-              // ─── Layer 5: Overview Mode ────────────────────────────────
-              if (_isOverviewMode)
-                _buildOverviewMode(),
-            ],
+            children: stackChildren,
           ),
         ),
       ),
@@ -418,8 +402,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   ),
                 ),
                 const SizedBox(height: 24),
-                // Page thumbnails would go here
-                // For now, a placeholder
                 Container(
                   width: 200,
                   height: 300,
@@ -430,11 +412,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                       color: SparkColors.amber.withOpacity(0.2),
                     ),
                   ),
-                  child: Center(
-                    child: CustomPaint(
-                      painter: _OverviewSparkPainter(),
-                      size: const Size(40, 40),
-                    ),
+                  child: const Center(
+                    child: _OverviewSpark(),
                   ),
                 ),
               ],
@@ -442,6 +421,48 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ),
         ),
       ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Bottom Gradient (extracted to avoid rebuilding)
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _BottomGradient extends StatelessWidget {
+  const _BottomGradient();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 160,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.transparent,
+            Colors.black.withOpacity(0.3),
+            Colors.black.withOpacity(0.5),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Overview Spark (extracted to avoid rebuilding CustomPainter)
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _OverviewSpark extends StatelessWidget {
+  const _OverviewSpark();
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: _OverviewSparkPainter(),
+      size: const Size(40, 40),
     );
   }
 }
@@ -456,11 +477,10 @@ class _ContextMenuItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const _ContextMenuItem({
-    Key? key,
     required this.icon,
     required this.label,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
