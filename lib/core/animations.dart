@@ -1,6 +1,7 @@
 // lib/core/animations.dart
 
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class SparkAnimations {
   // Curves
