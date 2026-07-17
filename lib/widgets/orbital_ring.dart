@@ -231,7 +231,7 @@ class _OrbitalRingPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (apps.isEmpty) {
       // Empty ring - just the faint ellipse
-      _drawRingPath(canvas, size, const Offset(size.width / 2, size.height / 2));
+      _drawRingPath(canvas, size, Offset(size.width / 2, size.height / 2));
       return;
     }
 

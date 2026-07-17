@@ -200,7 +200,7 @@ class _SparkGestureDetectorState extends State<SparkGestureDetector> {
       onPanStart: _handlePanStart,
       onPanUpdate: _handlePanUpdate,
       onPanEnd: _handlePanEnd,
-      onLongPressStart: _handleLongPressStart,
+      onLongPressStart: _handleLongPress,
       onLongPressEnd: _handleLongPressEnd,
       onScaleStart: _handleScaleStart,
       onScaleUpdate: _handleScaleUpdate,
