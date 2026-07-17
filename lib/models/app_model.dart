@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
 class AppModel {
   final String packageName;
   final String name;
-  final IconData icon;
+  final Uint8List? iconBytes;
   final bool isFavorite;
   final bool hasNotification;
   final bool isHighlighted;
@@ -12,7 +12,7 @@ class AppModel {
   const AppModel({
     required this.packageName,
     required this.name,
-    this.icon = Icons.apps,
+    this.iconBytes,
     this.isFavorite = false,
     this.hasNotification = false,
     this.isHighlighted = false,

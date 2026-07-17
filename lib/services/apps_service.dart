@@ -1,60 +1,49 @@
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:installed_apps/installed_apps.dart';
 import 'package:installed_apps/app_info.dart';
-import 'dart:typed_data';
 import '../models/app_model.dart';
 
-final appsProvider = NotifierProvider<AppsNotifier, List<AppModel>>(() {
-  return AppsNotifier();
+final appsProvider = FutureProvider<List<AppModel>>((ref) async {
+  return await AppsService.loadApps();
 });
 
-class AppsNotifier extends Notifier<List<AppModel>> {
-  @override
-  List<AppModel> build() {
-    _initApps();
-    return [];
-  }
-
-  Future<void> _initApps() async {
+class AppsService {
+  static Future<List<AppModel>> loadApps() async {
     try {
-      List<AppInfo> apps = await InstalledApps.getInstalledApps(
-        excludeSystemApps: false,
-        withIcon: true,
-
+      final List<AppInfo> installedApps = await InstalledApps.getInstalledApps(
+        includeSystemApps: false,
+        onlyAppsWithLaunchIntent: true,
       );
 
-      var parsedApps = apps.map((app) {
-        Uint8List? iconBytes;
-        if (app.icon != null) {
-          iconBytes = app.icon;
-        }
+      // Sort alphabetically
+      installedApps.sort((a, b) => a.name.compareTo(b.name));
+
+      // Filter out Spark Launcher itself
+      final filtered = installedApps
+          .where((app) => app.packageName != 'com.sparkos.launcher')
+          .toList();
+
+      return filtered.map((app) {
         return AppModel(
-          title: app.name!,
-          packageName: app.packageName!,
-          iconBytes: iconBytes,
-          category: _assignCategory(app.packageName!),
+          packageName: app.packageName,
+          name: app.name,
+          hasNotification: false,
+          orbitalDistance: 0.85 + (filtered.indexOf(app) % 10) * 0.03,
         );
       }).toList();
-
-      parsedApps.sort(
-          (a, b) => a.title.toLowerCase().compareTo(b.title.toLowerCase()));
-      state = parsedApps;
     } catch (e) {
-      print("Failed to load apps: \$e");
+      // Fallback: return empty list
+      return [];
     }
   }
 
-  String _assignCategory(String packageName) {
-    if (packageName.contains('android.contacts') ||
-        packageName.contains('messaging')) return 'Communication';
-    if (packageName.contains('gallery') || packageName.contains('player'))
-      return 'Media';
-    if (packageName.contains('settings') ||
-        packageName.contains('packageinstaller')) return 'System';
-    return 'Tools';
-  }
-
-  void launchApp(String packageName) {
-    InstalledApps.startApp(packageName);
+  static Future<Uint8List?> getAppIcon(String packageName) async {
+    try {
+      return await InstalledApps.getAppIcon(packageName);
+    } catch (e) {
+      return null;
+    }
   }
 }
