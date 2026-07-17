@@ -1,42 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
-import '../../services/settings_service.dart';
-import '../../widgets/spark_button.dart';
+import '../../widgets/spark_star.dart';
+import '../../core/colors.dart';
 
-class WelcomeScreen extends ConsumerWidget {
+class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 150,
-              height: 150,
-              child: Lottie.asset('assets/animations/eye_open.json'),
-            ),
+            const SparkStar(size: 64, eyeState: EyeState.active),
             const SizedBox(height: 40),
-            const Text(
-              'A NEW CYCLE BEGINS',
+            Text(
+              'Spark Launcher',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                letterSpacing: 8.0,
-                fontWeight: FontWeight.bold,
+                color: SparkColors.amber,
+                fontSize: 28,
+                fontWeight: FontWeight.w300,
+                letterSpacing: 4.0,
               ),
             ),
-            const SizedBox(height: 80),
-            SparkButton(
-              text: 'ENTER',
-              onPressed: () {
-                ref.read(settingsProvider.notifier).setHasSeenIntro(true);
-                Navigator.pushReplacementNamed(context, '/home');
-              },
+            const SizedBox(height: 12),
+            Text(
+              'The spark is awake',
+              style: TextStyle(
+                color: SparkColors.amber.withOpacity(0.6),
+                fontSize: 14,
+                letterSpacing: 2.0,
+              ),
+            ),
+            const SizedBox(height: 60),
+            GestureDetector(
+              onTap: () => Navigator.pushReplacementNamed(context, '/home'),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
+                decoration: BoxDecoration(
+                  border: Border.all(color: SparkColors.amber.withOpacity(0.5), width: 1),
+                ),
+                child: Text(
+                  'ENTER',
+                  style: TextStyle(
+                    color: SparkColors.amber,
+                    fontSize: 16,
+                    letterSpacing: 3.0,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

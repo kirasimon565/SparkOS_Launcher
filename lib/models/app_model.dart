@@ -1,15 +1,21 @@
-import 'dart:typed_data';
+import 'package:flutter/material.dart';
 
 class AppModel {
-  final String title;
   final String packageName;
-  final Uint8List? iconBytes;
-  final String category;
+  final String name;
+  final IconData icon;
+  final bool isFavorite;
+  final bool hasNotification;
+  final bool isHighlighted;
+  final double orbitalDistance;
 
-  AppModel({
-    required this.title,
+  const AppModel({
     required this.packageName,
-    this.iconBytes,
-    required this.category,
+    required this.name,
+    this.icon = Icons.apps,
+    this.isFavorite = false,
+    this.hasNotification = false,
+    this.isHighlighted = false,
+    this.orbitalDistance = 1.0,
   });
 }
